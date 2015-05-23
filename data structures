@@ -1,0 +1,47 @@
+class Task:
+    def __init__(self, aName, aSummary, aCaptain):
+        self.n = aName
+        self.s = aSummary
+        self.completed = False
+        self.reviewed = False
+        self.captain = aCaptain
+    def setCompleted(self, user):
+        if user is self.captain:
+            self.completed = True
+    def setReviewed(self, user):
+        if (user is self.captain) and self.completed:
+            self.reviewed = True
+    def setName(self, user, aName):
+        if user is self.captain:
+            self.n = aName
+    def setSummary(self, user, aSummary):
+        self.s = aSummary
+    def addMember(self, user, member):
+        if user is self.captain:
+            if self.captain.members.count(member) > 0:
+                self.members.append(member)
+                self.parent.addMember(user, member)
+    def addSubTask(self, user, task):
+        if user is self.captain:
+            self.subTasks.append(task)
+            task.parent = self
+            
+class Captain:
+    def __init__(self, anID, aPW):
+        self.ID = anID
+        self.PW = aPW
+        self.isCaptain = True
+    def addMember(self, member):
+        self.members.append(member)
+
+class TeamMember:
+    def __init__(self, anID, aPW, aCaptain):
+        self.ID = anID
+        self.PW = aPW
+        self.isCaptain = False
+        self.captain = aCaptain
+    def addTask(self, user, task):
+        if user is self.captain:
+            self.tasks.append(task)
+
+print "Hello"
